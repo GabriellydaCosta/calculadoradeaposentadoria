@@ -28,20 +28,29 @@ class MainActivity : AppCompatActivity() {
         binding.btnCalcular.setOnClickListener {
             val sexo = binding.spinnerGenero.selectedItem as String
             var idade = binding.editIdade.text.toString().toLongOrNull()
-            var resultado: Long
+            var resultado: Long = 0
             if (idade != null) {
-                if (sexo.trim()=="masclino"){
-                    resultado = 65 - idade
-                }else{
-                    resultado = 62 - idade
-                }
-                binding.textResultado.text = "Faltam $resultado anos para você se aposentar"
+                if (sexo.trim() == "Masculino") {
+                    if (idade <= 64) {
+                        resultado = 65 - idade
+                        binding.textResultado.text = "Faltam $resultado anos para você se aposentar"
 
+                    } else {
+                        binding.textResultado.text = "Está na idade de aposentar!"
+                    }
+
+                } else {
+                    if (idade <= 62) {
+                        resultado = 62 - idade
+                        binding.textResultado.text = "Faltam $resultado anos para você se aposentar"
+                    } else {
+                        binding.textResultado.text = "Já está na idade de aposentar!"
+                    }
+                }
             } else {
-                binding.textResultado.text = "Por favor, insira sua idade."
+                binding.textResultado.text = "Por favor, insira sua idade"
+
             }
         }
-
-
     }
 }
